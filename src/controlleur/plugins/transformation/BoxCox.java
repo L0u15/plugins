@@ -18,11 +18,12 @@ public class BoxCox implements PluginTransformation {
 
     private final String LIBELLE = "Box-Cox";
     private final Categorie CATEGORIE = Categorie.TRANSFORMATION;
-    
+
     private double lambda;
+    private ISerie serie;
 
     @Override
-    public ISerie transform(ISerie serie) {
+    public ISerie transform() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -37,15 +38,13 @@ public class BoxCox implements PluginTransformation {
     }
 
     @Override
-    public ArrayList<String> getParam() {
-        ArrayList<String>param = new ArrayList<>();
-        param.add("");
-        return param;
+    public void setParam() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setParam(ArrayList<Double> listParam) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setSerie(ISerie serie) {
+        this.serie = serie;
     }
 
 }

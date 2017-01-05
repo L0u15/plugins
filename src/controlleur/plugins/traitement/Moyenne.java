@@ -5,9 +5,10 @@
  */
 package controlleur.plugins.traitement;
 
-import java.util.ArrayList;
 import controlleur.plugins.Categorie;
 import controlleur.plugins.PluginTraitement;
+import java.util.ArrayList;
+import model.ISerie;
 
 /**
  *
@@ -18,14 +19,16 @@ public class Moyenne implements PluginTraitement {
     private final String LIBELLE = "Moyenne";
     private final Categorie CATEGORIE = Categorie.TRAITEMENT;
 
+    private ISerie serie;
+
     @Override
-    public double getValue(model.ISerie serie) throws Exception {
-        double nbValeurs = serie.getRowCount();
+    public double getValue() throws Exception {
+        double nbValeurs = this.serie.getRowCount();
         if (nbValeurs == 0) {
             throw new Exception("Peut pas diviser par zéro");
         } else {
             double somme = 0;
-            for (double valeur : serie.getAllValues()) {
+            for (double valeur : this.serie.getAllValues()) {
                 somme += valeur;
             }
             return somme / nbValeurs;
@@ -43,12 +46,13 @@ public class Moyenne implements PluginTraitement {
     }
 
     @Override
-    public ArrayList<String> getParam() {
-        return new ArrayList<String>();
+    public void setParam() {
+
     }
 
     @Override
-    public void setParam(ArrayList<Double> listParam) {
+    public void setSerie(ISerie serie) {
+        this.serie = serie;
     }
 
 }
