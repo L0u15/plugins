@@ -9,6 +9,7 @@ import model.ParamModel;
 import model.SerieToUse;
 import vue.BoxCoxVue;
 import vue.Fenetre;
+import vue.MoyPondVue;
 import vue.ParamPanel;
 import vue.ParamView;
 
@@ -18,45 +19,18 @@ import vue.ParamView;
  */
 public class Test {
 
-    public static Double calImpair(Double[] tab, int index, int ordre) {
-        Double d = 0.0;
+    public Test() {
+        ParamModel param = new ParamModel("Ordre", "entier positif");
 
-        for (int j = index - (ordre - 1) / 2; j <= index + (ordre - 1) / 2; j++) {
-            d += tab[j];
-        }
-
-        return d / ordre;
-    }
-
-    public static void affiche(Double[] tab) {
-        for (int i = 0; i < tab.length; i++) {
-            if (tab[i] == null) {
-                System.out.print("null ");
-            } else {
-                System.out.print(tab[i].toString() + " ");
-
-            }
-        }
-        System.out.println("");
+        MoyPondVue moy = new MoyPondVue(new JFrame(), param);
     }
 
     public static void main(String[] args) {
-
-        Double[] tab = {2.0, 3.0, 5.0, 8.0, 8.0, 7.0, 8.0, 5.0, 2.0};
-        Double[] moyMob = new Double[tab.length];
-        affiche(tab);
-
-        int h = 3;
-
-        for (int i = 0; i < tab.length; i++) {
-            Double d = null;
-            if (i - (h - 1) / 2 >= 0 && i + (h - 1) / 2 < tab.length) {
-                d = calImpair(tab, i, h);
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Test();
             }
-            moyMob[i] = d;
-        }
-        affiche(moyMob);
-
+        });
     }
 
 }

@@ -39,9 +39,11 @@ public class MoyenneMobilePonderee implements PluginTransformation {
             if (i - this.ponderations.size() + 1 >= 0) {
                 d = moyPond(i);
             }
+            System.out.println(this.serie.getAllValues().get(i) + "=>" + d);
+
             list.get(i).setValeur(d);
         }
-
+        System.out.println("fin transfo");
         newSerie.setEnsLignes(list);
         return newSerie;
     }
@@ -63,7 +65,13 @@ public class MoyenneMobilePonderee implements PluginTransformation {
 
     @Override
     public void askValues(JFrame frame) {
-        //TODO    
+        this.ponderations = new ArrayList<ParamModel>();
+        for (int i = 0; i < 5; i++) {
+            Double d = (double) 1 / 1 - i;
+            ParamModel pond = new ParamModel("pondaration" + i, "descri" + i);
+            pond.setValeur(d);
+            this.ponderations.add(pond);
+        }
     }
 
     @Override
