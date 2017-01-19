@@ -6,14 +6,16 @@
 package controlleur.plugins;
 
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import model.ISerie;
+import model.ParamModel;
 
 /**
  *
  * @author lalleaul
  */
 public interface PluginBase {
-
+   
     /**
      * Obtient le libellé à afficher
      *
@@ -27,12 +29,11 @@ public interface PluginBase {
      * @return Categorie
      */
     public Categorie getCategorie();
-
-    /**
-     * s'occupe de demander les paramètres necessaires
-     */
-    public void setParam();
     
     public void setSerie(ISerie serie);
+    
+    public void askValues(JFrame frame);
+    
+    public boolean isPossible();
 
 }

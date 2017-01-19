@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlleur.plugins.transformation;
 
 import controlleur.plugins.Categorie;
@@ -11,43 +6,37 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import model.ISerie;
 import model.Ligne;
-import model.ParamModel;
 import model.SerieToUse;
 import operations.Operations;
-import vue.BoxCoxVue;
 
 /**
  *
  * @author lalleaul
  */
-public class BoxCox implements PluginTransformation {
+public class Log implements PluginTransformation {
 
-    private final String LIBELLE = "Box-Cox";
-
+    private final String LIBELLE = "Log";
     private final Categorie CATEGORIE = Categorie.TRANSFORMATION;
 
-    private ParamModel lambda =new ParamModel("Lambda", ">= 0");
     private ISerie serie;
-
 
     @Override
     public ISerie transform() {
-
         SerieToUse serie = new SerieToUse();
-        ArrayList<Ligne> liste = new ArrayList<>();
+        ArrayList<Ligne> list = new ArrayList<>();
 
-        for (Ligne l : this.serie.getEnsLignes()) {
+        for (Ligne oldLine : this.serie.getEnsLignes()) {
 
-            Ligne ligne = new Ligne();
+            Ligne newLine = new Ligne();
 
-            ligne.setValDate(l.getValDate());
+            newLine.setValDate(oldLine.getValDate());
 
-            double newVal = Operations.BoxCox(l.getValeur(), this.lambda.getValeur());
-            ligne.setValeur(newVal);
-
-            liste.add(ligne);
+            double newVal = Operations.ln(oldLine.getValeur());
+            System.out.println(oldLine.getValeur() + "=>" + newVal);
+            newLine.setValeur(newVal);
+            list.add(newLine);
         }
-        serie.setEnsLignes(liste);
+        serie.setEnsLignes(list);
         return serie;
     }
 
@@ -68,12 +57,16 @@ public class BoxCox implements PluginTransformation {
 
     @Override
     public void askValues(JFrame frame) {
-        new BoxCoxVue(frame, this.lambda);
     }
 
     @Override
     public boolean isPossible() {
-        return this.lambda.getValeur() >= 0;
+        for (double val : this.serie.getAllValues()) {
+            if (val <= 0 || val >= 1) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

@@ -8,7 +8,9 @@ package controlleur.plugins.traitement;
 import controlleur.plugins.Categorie;
 import controlleur.plugins.PluginTraitement;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import model.ISerie;
+import model.ParamModel;
 
 /**
  *
@@ -23,16 +25,15 @@ public class Moyenne implements PluginTraitement {
 
     @Override
     public double getValue() throws Exception {
+        
         double nbValeurs = this.serie.getRowCount();
-        if (nbValeurs == 0) {
-            throw new Exception("Peut pas diviser par zéro");
-        } else {
-            double somme = 0;
-            for (double valeur : this.serie.getAllValues()) {
-                somme += valeur;
-            }
-            return somme / nbValeurs;
+
+        double somme = 0;
+        for (double valeur : this.serie.getAllValues()) {
+            somme += valeur;
         }
+        return somme / nbValeurs;
+
     }
 
     @Override
@@ -46,13 +47,17 @@ public class Moyenne implements PluginTraitement {
     }
 
     @Override
-    public void setParam() {
-
+    public void setSerie(ISerie serie) {
+        this.serie = serie;
     }
 
     @Override
-    public void setSerie(ISerie serie) {
-        this.serie = serie;
+    public void askValues(JFrame frame) {
+    }
+
+    @Override
+    public boolean isPossible() {
+        return this.serie.getRowCount() > 0;
     }
 
 }

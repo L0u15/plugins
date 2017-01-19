@@ -11,16 +11,17 @@ import java.util.Observable;
  *
  * @author lalleaul
  */
-public class ParametreModel extends Observable implements IParametre {
+public class ParamModel extends Observable implements IParametre {
 
     private final String LIBELLE;
     private Double valeur;
     private String description;
 
-    public ParametreModel(String libelle) {
+    public ParamModel(String libelle) {
         this.LIBELLE = libelle;
     }
-        public ParametreModel(String libelle, String description) {
+
+    public ParamModel(String libelle, String description) {
         this.LIBELLE = libelle;
         this.description = description;
     }
@@ -43,11 +44,6 @@ public class ParametreModel extends Observable implements IParametre {
     @Override
     public String getDescription() {
         return this.description;
-    }
-
-    @Override
-    public void setDescription(String description) {
-        this.description = description;
     }
 
 }
